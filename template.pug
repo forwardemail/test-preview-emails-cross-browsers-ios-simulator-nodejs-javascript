@@ -130,7 +130,7 @@ html
       tr
         th date
         td= moment(date).format('ddd, MMM D, YYYY') + ' at ' + moment(date).format('h:mm A')
-      if headers
+      if headers && typeof headers === 'object' && Object.keys(headers).length > 0
         tr
           th headers
           td
@@ -139,7 +139,7 @@ html
               = headers[header]
               if Object.keys(headers).length - 1 !== hi
                 = ', '
-      if list
+      if list && typeof list === 'object' && Object.keys(list).length > 0
         tr
           th list
           td
