@@ -34,8 +34,6 @@ const previewEmail = (message, id, open = true) => {
 
       res.message = JSON.parse(res.message);
 
-      console.log('res.message', res.message);
-
       const html = await renderFilePromise(
         templateFilePath,
         Object.assign(res.message, {

@@ -60,6 +60,10 @@ const message = {
   attachments: [ { filename: 'hello-world.txt', content: 'Hello world' } ]
 };
 
+// note that `attachments` will not be parsed unless you use
+// `previewEmail` with the results of `transport.sendMail`
+// e.g. `previewEmail(JSON.parse(res.message));` where `res`
+// is `const res = await transport.sendMail(message);`
 previewEmail(message).then(console.log).catch(console.error);
 
 transport.sendMail(message).then(console.log).catch(console.error);

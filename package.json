@@ -2,7 +2,7 @@
   "name": "preview-email",
   "description":
     "Automatically opens your browser to preview Node.js email messages sent with Nodemailer. Made for Lad!",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)",
   "bugs": {
     "url": "https://github.com/niftylettuce/preview-email/issues",
@@ -85,6 +85,7 @@
     "*.md": ["remark . -qfo", "git add"]
   },
   "main": "lib/index.js",
+  "files": ["lib", "template.pug"],
   "remarkConfig": {
     "plugins": ["preset-github"]
   },
