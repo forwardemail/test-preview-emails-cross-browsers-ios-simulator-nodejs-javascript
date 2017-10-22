@@ -16,7 +16,8 @@ test('opens a preview email', async t => {
     text: 'Hello world',
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
-      { path: path.join(__dirname, '..', '.editorconfig') }
+      { path: path.join(__dirname, '..', '.editorconfig') },
+      { path: path.join(__dirname, '..', 'demo.png') }
     ],
     headers: {
       'X-Some-Custom-Header': 'Some Custom Value'

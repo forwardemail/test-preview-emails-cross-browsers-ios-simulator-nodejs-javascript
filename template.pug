@@ -95,13 +95,14 @@ html
         tr
           th attachments
           td
-            each a, ai in attachments
-              if a.filename
-                = `"${a.filename}"`
-              else
-                != `"File #${ai}" (see <a href="https://github.com/nodemailer/nodemailer/issues/799" target="_blank">#799</a>)`
-              if attachments.length - 1 !== ai
-                = ', '
+            ul
+              each a in attachments
+                li
+                  a(href=`data:${a.contentType}${a.encoding ? `;${a.encoding}` : ''},${a.content}`, download=a.filename, target='_blank')
+                    if a.filename
+                      = `${a.filename}`
+                    else
+                      = 'Unnamed file'
       if sender
         tr
           th sender
