@@ -11,7 +11,7 @@ const transport = nodemailer.createTransport({
   jsonTransport: true
 });
 
-const templateFilePath = path.join(__dirname, 'template.pug');
+const templateFilePath = path.join(__dirname, '..', 'template.pug');
 
 const renderFilePromise = (view, locals) => {
   return new Promise((resolve, reject) => {
@@ -33,6 +33,8 @@ const previewEmail = (message, id, open = true) => {
       const res = await transport.sendMail(message);
 
       res.message = JSON.parse(res.message);
+
+      console.log('res.message', res.message);
 
       const html = await renderFilePromise(
         templateFilePath,

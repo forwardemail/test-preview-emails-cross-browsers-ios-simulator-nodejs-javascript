@@ -1,7 +1,10 @@
 const path = require('path');
 const test = require('ava');
+const nodemailer = require('nodemailer');
 
-const previewEmail = require('../');
+const previewEmail = require('../lib');
+
+const transport = nodemailer.createTransport({ jsonTransport: true });
 
 test('returns function', t => {
   t.true(typeof previewEmail === 'function');
@@ -26,8 +29,8 @@ test('opens a preview email', async t => {
       unsubscribe: 'https://niftylettuce.com/unsubscribe'
     }
   };
-
-  const url = await previewEmail(message);
+  const res = await transport.sendMail(message);
+  const url = await previewEmail(JSON.parse(res.message));
   t.true(typeof url === 'string');
 });
 
