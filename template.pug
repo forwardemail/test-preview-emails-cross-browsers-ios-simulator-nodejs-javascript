@@ -110,7 +110,14 @@ html
       if replyTo
         tr
           th replyTo
-          td= replyTo
+          td
+            if Array.isArray(replyTo)
+              each t, ti in replyTo
+                = `${t.name} <${t.address}>`.trim()
+                if to.length - 1 !== ti
+                  = ', '
+            else
+              = `${replyTo.name} <${replyTo.address}>`.trim()
       if inReplyTo
         tr
           th inReplyTo

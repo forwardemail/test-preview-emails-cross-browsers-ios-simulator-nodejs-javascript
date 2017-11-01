@@ -17,6 +17,8 @@ test('opens a preview email', async t => {
     subject: 'Hello world',
     html: `<p>Hello world</p>`,
     text: 'Hello world',
+    replyTo: 'niftylettuce <niftylettuce+replyto@gmail.com>',
+    inReplyTo: 'in reply to',
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
       { path: path.join(__dirname, '..', '.editorconfig') },
