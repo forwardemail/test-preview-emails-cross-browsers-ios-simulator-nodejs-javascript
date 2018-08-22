@@ -1,11 +1,14 @@
 const path = require('path');
 const os = require('os');
-const fs = require('fs-extra');
+const fs = require('fs');
 const uuid = require('uuid');
 const opn = require('opn');
 const nodemailer = require('nodemailer');
 const moment = require('moment');
 const pug = require('pug');
+const Promise = require('bluebird');
+
+const writeFile = Promise.promisify(fs.writeFile);
 
 const transport = nodemailer.createTransport({
   jsonTransport: true
@@ -22,37 +25,31 @@ const renderFilePromise = (view, locals) => {
   });
 };
 
-const previewEmail = (message, id, open = true) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      if (typeof message !== 'object')
-        throw new Error('Message argument is required');
+const previewEmail = async (message, id, open = true) => {
+  if (typeof message !== 'object')
+    throw new Error('Message argument is required');
 
-      if (!id) id = uuid.v4();
+  if (!id) id = uuid.v4();
 
-      const res = await transport.sendMail(message);
+  const res = await transport.sendMail(message);
 
-      res.message = JSON.parse(res.message);
+  res.message = JSON.parse(res.message);
 
-      const html = await renderFilePromise(
-        templateFilePath,
-        Object.assign(res.message, {
-          cache: true,
-          pretty: true,
-          moment
-        })
-      );
+  const html = await renderFilePromise(
+    templateFilePath,
+    Object.assign(res.message, {
+      cache: true,
+      pretty: true,
+      moment
+    })
+  );
 
-      const filePath = `${os.tmpdir()}/${id}.html`;
-      await fs.writeFile(filePath, html);
+  const filePath = `${os.tmpdir()}/${id}.html`;
+  await writeFile(filePath, html);
 
-      if (open) await opn(filePath, { wait: false });
+  if (open) await opn(filePath, { wait: false });
 
-      resolve(`file://${filePath}`);
-    } catch (err) {
-      reject(err);
-    }
-  });
+  return `file://${filePath}`;
 };
 
 module.exports = previewEmail;
