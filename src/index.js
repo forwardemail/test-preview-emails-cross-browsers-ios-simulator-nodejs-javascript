@@ -16,14 +16,7 @@ const transport = nodemailer.createTransport({
 
 const templateFilePath = path.join(__dirname, '..', 'template.pug');
 
-const renderFilePromise = (view, locals) => {
-  return new Promise((resolve, reject) => {
-    pug.renderFile(view, locals, (err, html) => {
-      if (err) return reject(err);
-      resolve(html);
-    });
-  });
-};
+const renderFilePromise = Promise.promisify(pug.renderFile);
 
 const previewEmail = async (message, id, open = true) => {
   if (typeof message !== 'object')
