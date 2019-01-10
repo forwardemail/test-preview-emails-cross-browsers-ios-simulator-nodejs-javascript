@@ -72,13 +72,15 @@ transport.sendMail(message).then(console.log).catch(console.error);
 
 ## Options
 
-Note that you can also pass two additional arguments to `previewEmail` function.
+Note that you can also pass three additional arguments to `previewEmail` function.
 
-These arguments are `id` and `open` (e.g. `previewEmail(message, id, open)`).
+These arguments are `id`, `open`, and `options` (e.g. `previewEmail(message, id, open, options)`).
 
 By default we automatically set an `id` using `uuid.v4()` (see [uuid][] for more info).
 
 Also, `open` is set to `true` by default - this means that we automatically open the browser for you.
+
+The `options` argument is an Object which defaults to `{ wait: false }`.  This object is passed along to [opn][]'s [options][opn-options].
 
 
 ## Contributors
@@ -108,3 +110,7 @@ Also, `open` is set to `true` by default - this means that we automatically open
 [uuid]: https://github.com/kelektiv/node-uuid
 
 [lad]: https://lad.js.org
+
+[opn]: https://github.com/sindresorhus/opn
+
+[opn-options]: https://github.com/sindresorhus/opn#options

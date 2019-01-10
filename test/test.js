@@ -42,7 +42,7 @@ test('does not open', async t => {
 });
 
 test('invalid message', async t => {
-  const error = await t.throws(previewEmail(false));
+  const error = await t.throwsAsync(previewEmail(false));
   t.is(error.message, 'Message argument is required');
 });
 

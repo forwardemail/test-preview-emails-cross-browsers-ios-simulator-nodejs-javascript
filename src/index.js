@@ -18,7 +18,12 @@ const templateFilePath = path.join(__dirname, '..', 'template.pug');
 
 const renderFilePromise = Promise.promisify(pug.renderFile);
 
-const previewEmail = async (message, id, open = true) => {
+const previewEmail = async (
+  message,
+  id,
+  open = true,
+  options = { wait: false }
+) => {
   if (typeof message !== 'object')
     throw new Error('Message argument is required');
 
@@ -40,7 +45,7 @@ const previewEmail = async (message, id, open = true) => {
   const filePath = `${os.tmpdir()}/${id}.html`;
   await writeFile(filePath, html);
 
-  if (open) await opn(filePath, { wait: false });
+  if (open) await opn(filePath, options);
 
   return `file://${filePath}`;
 };
