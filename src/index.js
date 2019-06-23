@@ -1,14 +1,15 @@
-const path = require('path');
-const os = require('os');
 const fs = require('fs');
-const uuid = require('uuid');
-const opn = require('opn');
-const nodemailer = require('nodemailer');
+const os = require('os');
+const path = require('path');
+const debug = require('debug')('preview-email');
 const moment = require('moment');
+const nodemailer = require('nodemailer');
+const open = require('open');
+const pify = require('pify');
 const pug = require('pug');
-const Promise = require('bluebird');
+const uuid = require('uuid');
 
-const writeFile = Promise.promisify(fs.writeFile);
+const writeFile = pify(fs.writeFile);
 
 const transport = nodemailer.createTransport({
   jsonTransport: true
@@ -16,25 +17,27 @@ const transport = nodemailer.createTransport({
 
 const templateFilePath = path.join(__dirname, '..', 'template.pug');
 
-const renderFilePromise = Promise.promisify(pug.renderFile);
+const renderFilePromise = pify(pug.renderFile);
 
-const previewEmail = async (
-  message,
-  id,
-  open = true,
-  options = { wait: false }
-) => {
+const previewEmail = async (message, options) => {
+  options = {
+    dir: os.tmpdir(),
+    id: uuid.v4(),
+    open: { wait: false },
+    template: templateFilePath,
+    ...options
+  };
+  debug('message', message, 'options', options);
+
   if (typeof message !== 'object')
     throw new Error('Message argument is required');
-
-  if (!id) id = uuid.v4();
 
   const res = await transport.sendMail(message);
 
   res.message = JSON.parse(res.message);
 
   const html = await renderFilePromise(
-    templateFilePath,
+    options.template,
     Object.assign(res.message, {
       cache: true,
       pretty: true,
@@ -42,10 +45,11 @@ const previewEmail = async (
     })
   );
 
-  const filePath = `${os.tmpdir()}/${id}.html`;
+  const filePath = `${options.dir}/${options.id}.html`;
+  debug('filePath', filePath);
   await writeFile(filePath, html);
 
-  if (open) await opn(filePath, options);
+  if (options.open) await open(filePath, options.open);
 
   return `file://${filePath}`;
 };

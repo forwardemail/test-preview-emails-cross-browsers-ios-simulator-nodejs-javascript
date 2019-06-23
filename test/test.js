@@ -37,7 +37,7 @@ test('opens a preview email', async t => {
 });
 
 test('does not open', async t => {
-  const url = await previewEmail({}, null, false);
+  const url = await previewEmail({}, { open: false });
   t.true(typeof url === 'string');
 });
 
@@ -48,11 +48,11 @@ test('invalid message', async t => {
 
 test('custom id', async t => {
   const id = new Date().getTime().toString();
-  const url = await previewEmail({}, id, false);
+  const url = await previewEmail({}, { id, open: false });
   t.is(path.basename(url).replace('.html', ''), id);
 });
 
 test('does not open in browser', async t => {
-  const url = await previewEmail({}, null, false);
+  const url = await previewEmail({}, { open: false });
   t.true(typeof url === 'string');
 });

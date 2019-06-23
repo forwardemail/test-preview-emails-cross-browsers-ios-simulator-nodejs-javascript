@@ -9,16 +9,22 @@
 
 > Automatically opens your browser to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Lad][]!
 
-**[VIEW THE DEMO](demo.png)**
-
 
 ## Table of Contents
 
+* [Screenshot](#screenshot)
 * [Install](#install)
 * [Usage](#usage)
+* [Custom Preview Template and Stylesheets](#custom-preview-template-and-stylesheets)
+* [Debugging](#debugging)
 * [Options](#options)
 * [Contributors](#contributors)
 * [License](#license)
+
+
+## Screenshot
+
+![demo screenshot](demo.png)
 
 
 ## Install
@@ -40,7 +46,7 @@ yarn add preview-email
 
 > **NOTE**: You should probably just use [email-templates][] directly instead of using this package.
 
-The function `previewEmail` returns a `Promise` which resolves with a URL. We automatically open the browser to this URL unless you specify the third argument `open` as `false` (see [Options](#options) for more info).
+The function `previewEmail` returns a `Promise` which resolves with a URL. We automatically open the browser to this URL unless you specify `options.open` as `false` (see [Options](#options) for more info).
 
 ```js
 const previewEmail = require('preview-email');
@@ -70,17 +76,38 @@ transport.sendMail(message).then(console.log).catch(console.error);
 ```
 
 
+## Custom Preview Template and Stylesheets
+
+Using the `options.template` object, you can define your own template for rendering (e.g. get inspiration from [template.pug](template.pug) and write your own!):
+
+```js
+const path = require('path');
+
+// ...
+
+previewEmail(message, { template: path.join(__dirname, 'my-custom-preview-template.pug') })
+  .then(console.log)
+  .catch(console.error);
+```
+
+
+## Debugging
+
+Thanks to the [debug][] package, you can easily debug output from `preview-email`:
+
+```sh
+DEBUG=preview-email node app.js
+```
+
+
 ## Options
 
-Note that you can also pass three additional arguments to `previewEmail` function.
-
-These arguments are `id`, `open`, and `options` (e.g. `previewEmail(message, id, open, options)`).
-
-By default we automatically set an `id` using `uuid.v4()` (see [uuid][] for more info).
-
-Also, `open` is set to `true` by default - this means that we automatically open the browser for you.
-
-The `options` argument is an Object which defaults to `{ wait: false }`.  This object is passed along to [opn][]'s [options][opn-options].
+* `message` (Object) - a [Nodemailer message configuration object](https://nodemailer.com/message/)
+* `options` (Object) - an object with the following two properties:
+  * `id` (String) - a unique ID for the file name created for the preview in `dir` (defaults to `uuid.v4()` from [uuid][])
+  * `dir` (String) - a path to a directory for saving the generated email previews (defaults to `os.tmpdir()`, see [os docs](https://nodejs.org/api/os.html#os_os_tmpdir) for more insight)
+  * `open` (Object or Boolean) - an options object that is passed to [open][] (defaults to `{ wait: false }`) - if set to `false` then it will not open the email automaitcally in the browser using [open][], and if set to `true` then it will default to `{ wait: false }`
+  * `template` (String) - a file path to a `pug` template file (defaults to preview-email's [template.pug](template.pug) by default) - **this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet**
 
 
 ## Contributors
@@ -111,6 +138,6 @@ The `options` argument is an Object which defaults to `{ wait: false }`.  This o
 
 [lad]: https://lad.js.org
 
-[opn]: https://github.com/sindresorhus/opn
+[open]: https://github.com/sindresorhus/open
 
-[opn-options]: https://github.com/sindresorhus/opn#options
+[debug]: https://github.com/visionmedia/debug
