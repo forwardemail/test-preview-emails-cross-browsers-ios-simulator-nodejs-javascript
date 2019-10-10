@@ -137,7 +137,7 @@ html
         - date = new Date()
       tr
         th date
-        td= moment(date).format('ddd, MMM D, YYYY') + ' at ' + moment(date).format('h:mm A')
+        td= dayjs(date).format('ddd, MMM D, YYYY') + ' at ' + dayjs(date).format('h:mm A')
       if headers && typeof headers === 'object' && Object.keys(headers).length > 0
         tr
           th headers

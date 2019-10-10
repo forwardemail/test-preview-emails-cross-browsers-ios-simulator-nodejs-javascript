@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const debug = require('debug')('preview-email');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const nodemailer = require('nodemailer');
 const open = require('open');
 const pify = require('pify');
@@ -41,7 +41,7 @@ const previewEmail = async (message, options) => {
     Object.assign(res.message, {
       cache: true,
       pretty: true,
-      moment
+      dayjs
     })
   );
 
