@@ -23,6 +23,7 @@
     "@babel/runtime": "^7.6.3",
     "dayjs": "^1.8.16",
     "debug": "^4.1.1",
+    "mailparser": "^2.7.7",
     "nodemailer": "^6.3.1",
     "open": "^6.4.0",
     "pify": "^4.0.1",

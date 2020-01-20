@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path');
+
 const test = require('ava');
 const nodemailer = require('nodemailer');
 
@@ -22,7 +24,11 @@ test('opens a preview email', async t => {
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
       { path: path.join(__dirname, '..', '.editorconfig') },
-      { path: path.join(__dirname, '..', 'demo.png') }
+      { path: path.join(__dirname, '..', 'demo.png') },
+      {
+        filename: 'test.txt',
+        content: fs.createReadStream(path.join(__dirname, 'test.txt'))
+      }
     ],
     headers: {
       'X-Some-Custom-Header': 'Some Custom Value'

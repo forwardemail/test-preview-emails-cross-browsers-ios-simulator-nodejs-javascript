@@ -10,11 +10,8 @@ html
     style(type='text/css').
       body {
         font-family: arial, sans-serif;
-      }
-      h1 {
-        font-size: 18px;
-        padding: 10px;
-        font-weight: normal;
+        padding-left: 20px;
+        padding-right: 20px;
       }
       table {
         padding-left: 10px;
@@ -31,7 +28,6 @@ html
         padding: 6px 16px 6px 0
       }
       iframe {
-        margin: 0 auto;
         border: 0;
         height: 100%;
         width: 100%;
@@ -40,129 +36,31 @@ html
         display: block;
         border: 1px solid black;
       }
-      p {
-        text-align: center;
-      }
 
   body
-
-    if subject
-      h1= subject
-    hr
-    table
-      if from
-        tr
-          th from
-          td= `${from.name} <${from.address}>`.trim()
-      if to
-        tr
-          th to
-          td
-            if Array.isArray(to)
-              each t, ti in to
-                = `${t.name} <${t.address}>`.trim()
-                if to.length - 1 !== ti
-                  = ', '
-            else
-              = `${to.name} <${to.address}>`.trim()
-      if cc
-        tr
-          th cc
-          td
-            if Array.isArray(cc)
-              each c, ci in cc
-                = `${c.name} <${c.address}>`.trim()
-                if cc.length - 1 !== ci
-                = ', '
-            else
-              = `${cc.name} <${cc.address}>`.trim()
-      if bcc
-        tr
-          th bcc
-          td
-            if Array.isArray(bcc)
-              each bc, bci in bcc
-                = `${bc.name} <${bc.address}>`.trim()
-                if bcc.length - 1 !== bci
-                  = ', '
-            else
-              = `${bcc.name} <${bcc.address}>`.trim()
-      if subject
-        tr
-          th subject
-          td: strong= subject
-      if attachments && attachments.length > 0
-        tr
-          th attachments
-          td
-            ul
-              each a in attachments
-                li
-                  a(href=`data:${a.contentType}${a.encoding ? `;${a.encoding}` : ''},${a.content}`, download=a.filename, target='_blank')
-                    if a.filename
-                      = `${a.filename}`
-                    else
-                      = 'Unnamed file'
-      if sender
-        tr
-          th sender
-          td= sender
-      if replyTo
-        tr
-          th replyTo
-          td
-            if Array.isArray(replyTo)
-              each t, ti in replyTo
-                = `${t.name} <${t.address}>`.trim()
-                if to.length - 1 !== ti
-                  = ', '
-            else
-              = `${replyTo.name} <${replyTo.address}>`.trim()
-      if inReplyTo
-        tr
-          th inReplyTo
-          td= inReplyTo
-      if references
-        tr
-          th references
-          if Array.isArray(references)
-            td= references.join(', ')
-          else
-            td= references
-      if messageId
-        tr
-          th messageId
-          td= messageId
-      if !date
-        - date = new Date()
-      tr
-        th date
-        td= dayjs(date).format('ddd, MMM D, YYYY') + ' at ' + dayjs(date).format('h:mm A')
-      if headers && typeof headers === 'object' && Object.keys(headers).length > 0
-        tr
-          th headers
-          td
-            each header, hi in Object.keys(headers)
-              strong= `${header}: `
-              = headers[header]
-              if Object.keys(headers).length - 1 !== hi
-                = ', '
-      if list && typeof list === 'object' && Object.keys(list).length > 0
-        tr
-          th list
-          td
-            each key, ki in Object.keys(list)
-              strong= `${key}: `
-              if typeof list[key] === 'object'
-                = list[key].url
+    if headers.get('subject')
+      p: strong Subject:
+      p= headers.get('subject')
+    p: strong Headers:
+    pre
+      code
+        each headerLine, i in headerLines
+          = headerLine.line
+          if i < headerLines.length - 1
+            br
+    if attachments && attachments.length > 0
+      p: strong Attachments:
+      ul
+        each a in attachments
+          li
+            a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
+              if a.filename
+                = `${a.filename}`
               else
-                = list[key]
-              if Object.keys(list).length - 1 !== ki
-                = ', '
-    hr
+                = 'Unnamed file'
     if html
-      iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)
+      p: strong HTML:
+      p: iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)
     if text
-      hr
-      p: small TEXT VERSION:
-      iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)
+      p: strong TEXT:
+      p: iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)
