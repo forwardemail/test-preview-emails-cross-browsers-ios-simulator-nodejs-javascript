@@ -39,9 +39,6 @@ const previewEmail = async (message, options) => {
 
   const parsed = await simpleParser(res.message);
 
-  console.log('parsed', parsed);
-  console.log('parsed.attachments', parsed.attachments);
-
   const html = await renderFilePromise(
     options.template,
     Object.assign(parsed, {
