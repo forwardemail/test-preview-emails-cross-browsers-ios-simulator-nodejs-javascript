@@ -62,3 +62,14 @@ test('does not open in browser', async t => {
   const url = await previewEmail({}, { open: false });
   t.true(typeof url === 'string');
 });
+
+test('transform URL', async t => {
+  const url = await previewEmail(
+    {},
+    {
+      open: false,
+      urlTransform: path => `http://localhost:8000/${path}`
+    }
+  );
+  t.regex(url, /^http:\/\/localhost:8000\//);
+});
