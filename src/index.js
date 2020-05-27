@@ -28,6 +28,7 @@ const previewEmail = async (message, options) => {
     id: uuid.v4(),
     open: { wait: false },
     template: templateFilePath,
+    urlTransform: path => `file://${path}`,
     ...options
   };
   debug('message', message, 'options', options);
@@ -52,9 +53,10 @@ const previewEmail = async (message, options) => {
   debug('filePath', filePath);
   await writeFile(filePath, html);
 
-  if (options.open) await open(filePath, options.open);
+  const url = options.urlTransform(filePath);
+  if (options.open) await open(url, options.open);
 
-  return `file://${filePath}`;
+  return url;
 };
 
 module.exports = previewEmail;
