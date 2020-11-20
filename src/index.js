@@ -1,17 +1,17 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const util = require('util');
 
 const dayjs = require('dayjs');
 const debug = require('debug')('preview-email');
 const nodemailer = require('nodemailer');
 const open = require('open');
-const pify = require('pify');
 const pug = require('pug');
 const uuid = require('uuid');
 const { simpleParser } = require('mailparser');
 
-const writeFile = pify(fs.writeFile);
+const writeFile = util.promisify(fs.writeFile);
 
 const transport = nodemailer.createTransport({
   streamTransport: true,
@@ -20,7 +20,7 @@ const transport = nodemailer.createTransport({
 
 const templateFilePath = path.join(__dirname, '..', 'template.pug');
 
-const renderFilePromise = pify(pug.renderFile);
+const renderFilePromise = util.promisify(pug.renderFile);
 
 const previewEmail = async (message, options) => {
   options = {
