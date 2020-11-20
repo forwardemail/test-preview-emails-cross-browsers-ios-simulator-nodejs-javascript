@@ -27,7 +27,7 @@
     "nodemailer": "^6.4.16",
     "open": "^6.4.0",
     "pify": "^4.0.1",
-    "pug": "^3.0.0",
+    "pug": "^2.0.4",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -53,7 +53,7 @@
     "xo": "^0.35.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "lib",
@@ -144,12 +144,6 @@
   "xo": {
     "prettier": true,
     "space": true,
-    "overrides": [
-      {
-        "files": "src/*.js",
-        "nodeVersion": ">=12"
-      }
-    ],
     "extends": [
       "xo-lass"
     ]
