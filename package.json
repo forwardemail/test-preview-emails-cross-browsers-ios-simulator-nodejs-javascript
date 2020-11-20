@@ -23,11 +23,11 @@
     "@babel/runtime": "^7.6.3",
     "dayjs": "^1.8.16",
     "debug": "^4.1.1",
-    "mailparser": "^2.7.7",
-    "nodemailer": "^6.3.1",
+    "mailparser": "^3.0.0",
+    "nodemailer": "^6.4.16",
     "open": "^6.4.0",
     "pify": "^4.0.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -35,22 +35,22 @@
     "@babel/core": "^7.6.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "auto-bind": "^2.1.1",
-    "ava": "^2.4.0",
+    "ava": "^3.13.0",
     "codecov": "^3.6.1",
     "cross-env": "^6.0.3",
-    "eslint": "^6.5.1",
+    "eslint": "^7.13.0",
     "eslint-config-xo-lass": "^1.0.3",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.0.0",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.2",
     "nyc": "^14.1.1",
     "remark-cli": "^7.0.0",
     "remark-preset-github": "^0.0.16",
     "rimraf": "^3.0.0",
-    "xo": "^0.25.3"
+    "xo": "^0.35.0"
   },
   "engines": {
     "node": ">=8"
@@ -144,6 +144,12 @@
   "xo": {
     "prettier": true,
     "space": true,
+    "overrides": [
+      {
+        "files": "src/*.js",
+        "nodeVersion": ">=12"
+      }
+    ],
     "extends": [
       "xo-lass"
     ]
