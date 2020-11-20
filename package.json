@@ -27,7 +27,7 @@
     "nodemailer": "^6.4.16",
     "open": "^6.4.0",
     "pify": "^4.0.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
