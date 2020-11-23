@@ -5,7 +5,7 @@
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
-[![license](https://img.shields.io/github/license/niftylettuce/preview-email.svg)](<>)
+[![license](https://img.shields.io/github/license/niftylettuce/preview-email.svg)]()
 
 > Automatically opens your browser to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Lad][]!
 
@@ -108,7 +108,7 @@ DEBUG=preview-email node app.js
   * `dir` (String) - a path to a directory for saving the generated email previews (defaults to `os.tmpdir()`, see [os docs](https://nodejs.org/api/os.html#os_os_tmpdir) for more insight)
   * `open` (Object or Boolean) - an options object that is passed to [open][] (defaults to `{ wait: false }`) - if set to `false` then it will not open the email automaitcally in the browser using [open][], and if set to `true` then it will default to `{ wait: false }`
   * `template` (String) - a file path to a `pug` template file (defaults to preview-email's [template.pug](template.pug) by default) - **this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet**
-  * `urlTransform` (Function (path) => url) - a function to build preview url from file path (defaults to `(path) => 'file://[file path]'`) - _this is where you can customize the opened path to handle WSL to Windows tranformation or build a http url if `dir` is served._
+  * `urlTransform` (Function (path) => url) - a function to build preview url from file path (defaults to `(path) => 'file://[file path]'`) - *this is where you can customize the opened path to handle WSL to Windows tranformation or build a http url if `dir` is served.*
 
 
 ## Contributors
@@ -123,7 +123,7 @@ DEBUG=preview-email node app.js
 [MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com/)
 
 
-## 
+##
 
 [npm]: https://www.npmjs.com/
 

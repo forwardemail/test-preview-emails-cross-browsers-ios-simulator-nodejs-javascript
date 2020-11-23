@@ -28,7 +28,7 @@ const previewEmail = async (message, options) => {
     id: uuid.v4(),
     open: { wait: false },
     template: templateFilePath,
-    urlTransform: path => `file://${path}`,
+    urlTransform: (path) => `file://${path}`,
     ...options
   };
   debug('message', message, 'options', options);
@@ -36,9 +36,9 @@ const previewEmail = async (message, options) => {
   if (typeof message !== 'object')
     throw new Error('Message argument is required');
 
-  const res = await transport.sendMail(message);
+  const response = await transport.sendMail(message);
 
-  const parsed = await simpleParser(res.message);
+  const parsed = await simpleParser(response.message);
 
   const html = await renderFilePromise(
     options.template,
