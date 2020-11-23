@@ -20,7 +20,6 @@
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.6.3",
     "dayjs": "^1.8.16",
     "debug": "^4.1.1",
     "mailparser": "^2.7.7",
@@ -30,10 +29,6 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.3",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "auto-bind": "^2.1.1",
@@ -48,14 +43,13 @@
     "nyc": "^14.1.1",
     "remark-cli": "^7.0.0",
     "remark-preset-github": "^0.0.16",
-    "rimraf": "^3.0.0",
     "xo": "^0.25.3"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
-    "lib",
+    "src",
     "template.pug"
   ],
   "homepage": "https://github.com/niftylettuce/preview-email",
@@ -114,7 +108,7 @@
       ]
     }
   },
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "prettier": {
     "singleQuote": true,
     "bracketSpacing": true,
@@ -131,14 +125,11 @@
   },
   "scripts": {
     "ava": "cross-env NODE_ENV=test DEBUG=preview-email ava",
-    "build": "npm run build:clean && npm run build:lib",
-    "build:clean": "rimraf lib dist",
-    "build:lib": "babel src --out-dir lib",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo && eslint lib",
+    "lint": "xo && remark . -qfo && eslint . --ignore-path .gitignore",
     "nyc": "cross-env NODE_ENV=test nyc ava",
-    "test": "npm run build && npm run lint && npm run ava",
-    "test-coverage": "npm run build && npm run lint && npm run nyc"
+    "test": "npm run lint && npm run ava",
+    "test-coverage": "npm run lint && npm run nyc"
   },
   "xo": {
     "prettier": true,
