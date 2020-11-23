@@ -4,7 +4,7 @@ const path = require('path');
 const test = require('ava');
 const nodemailer = require('nodemailer');
 
-const previewEmail = require('../lib');
+const previewEmail = require('../src');
 
 const transport = nodemailer.createTransport({ jsonTransport: true });
 
