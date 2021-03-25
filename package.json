@@ -20,29 +20,29 @@
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)"
   ],
   "dependencies": {
-    "dayjs": "^1.9.6",
+    "dayjs": "^1.10.4",
     "debug": "^4.3.1",
-    "mailparser": "^3.0.1",
-    "nodemailer": "^6.4.16",
-    "open": "^7.3.0",
-    "pug": "^3.0.0",
-    "uuid": "^8.3.1"
+    "mailparser": "^3.1.0",
+    "nodemailer": "^6.5.0",
+    "open": "7",
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "ava": "^3.13.0",
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "ava": "^3.15.0",
     "codecov": "^3.8.1",
-    "cross-env": "^7.0.2",
-    "eslint": "^7.14.0",
-    "eslint-config-xo-lass": "^1.0.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-config-xo-lass": "^1.0.5",
     "eslint-plugin-node": "^11.1.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.5.2",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
     "nyc": "^15.1.0",
     "remark-cli": "^9.0.0",
     "remark-preset-github": "^4.0.1",
-    "xo": "^0.35.0"
+    "xo": "^0.38.2"
   },
   "engines": {
     "node": ">=10"

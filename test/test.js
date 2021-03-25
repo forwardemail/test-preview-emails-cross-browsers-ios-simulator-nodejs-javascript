@@ -53,7 +53,7 @@ test('invalid message', async (t) => {
 });
 
 test('custom id', async (t) => {
-  const id = new Date().getTime().toString();
+  const id = Date.now().toString();
   const url = await previewEmail({}, { id, open: false });
   t.is(path.basename(url).replace('.html', ''), id);
 });
