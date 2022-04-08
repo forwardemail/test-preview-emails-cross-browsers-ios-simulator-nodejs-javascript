@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "dayjs": "^1.10.6",
-    "debug": "^4.3.2",
+    "debug": "^4.3.4",
     "mailparser": "^3.3.0",
     "nodemailer": "^6.6.3",
     "open": "7",
