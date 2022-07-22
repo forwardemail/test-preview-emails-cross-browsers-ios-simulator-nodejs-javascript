@@ -27,13 +27,6 @@ const transport = nodemailer.createTransport({
 });
 const templateFilePath = path.join(__dirname, 'template.pug');
 const renderFilePromise = util.promisify(pug.renderFile);
-const normalizeFilePath = path.join(
-  __dirname,
-  'node_modules',
-  'normalize.css',
-  'normalize.css'
-);
-const normalize = fs.readFileSync(normalizeFilePath);
 
 const previewEmail = async (message, options) => {
   options = {
@@ -58,8 +51,7 @@ const previewEmail = async (message, options) => {
     options.template,
     Object.assign(parsed, {
       cache: true,
-      pretty: true,
-      normalize
+      pretty: true
     })
   );
 
