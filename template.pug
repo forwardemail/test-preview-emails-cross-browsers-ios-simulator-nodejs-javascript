@@ -6,10 +6,12 @@ html
     if subject
       title= subject
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css")
+    style(type='text/css')= normalize
     style(type='text/css').
       body {
         font-family: arial, sans-serif;
+      }
+      div {
         padding-left: 20px;
         padding-right: 20px;
       }
@@ -38,29 +40,30 @@ html
       }
 
   body
-    if headers.get('subject')
-      p: strong Subject:
-      p= headers.get('subject')
-    p: strong Headers:
-    pre
-      code
-        each headerLine, i in headerLines
-          = headerLine.line
-          if i < headerLines.length - 1
-            br
-    if attachments && attachments.length > 0
-      p: strong Attachments:
-      ul
-        each a in attachments
-          li
-            a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
-              if a.filename
-                = `${a.filename}`
-              else
-                = 'Unnamed file'
+    div
+      if headers.get('subject')
+        p: strong Subject:
+        p= headers.get('subject')
+      p: strong Headers:
+      pre
+        code
+          each headerLine, i in headerLines
+            = headerLine.line
+            if i < headerLines.length - 1
+              br
+      if attachments && attachments.length > 0
+        p: strong Attachments:
+        ul
+          each a in attachments
+            li
+              a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
+                if a.filename
+                  = `${a.filename}`
+                else
+                  = 'Unnamed file'
     if html
-      p: strong HTML:
-      p: iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)
+      div: p: strong HTML:
+      iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
     if text
-      p: strong TEXT:
-      p: iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)
+      div: p: strong TEXT:
+      iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text

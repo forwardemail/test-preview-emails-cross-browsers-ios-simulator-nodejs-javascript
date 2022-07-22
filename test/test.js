@@ -4,7 +4,7 @@ const path = require('path');
 const test = require('ava');
 const nodemailer = require('nodemailer');
 
-const previewEmail = require('../src/index.js');
+const previewEmail = require('..');
 
 const transport = nodemailer.createTransport({ jsonTransport: true });
 
@@ -24,7 +24,7 @@ test('opens a preview email', async (t) => {
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
       { path: path.join(__dirname, '..', '.editorconfig') },
-      { path: path.join(__dirname, '..', 'demo.png') },
+      { path: path.join(__dirname, '..', 'media', 'browser.png') },
       {
         filename: 'test.txt',
         content: fs.createReadStream(path.join(__dirname, 'test.txt'))

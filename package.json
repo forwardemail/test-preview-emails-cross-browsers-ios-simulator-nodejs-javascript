@@ -1,64 +1,54 @@
 {
   "name": "preview-email",
-  "description": "Automatically opens your browser to preview Node.js email messages sent with Nodemailer. Made for Lad!",
+  "description": "Automatically opens your browser and iOS Simulator to preview Node.js email messages sent with Nodemailer. Made for Forward Email and Lad!",
   "version": "3.0.5",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)",
-  "ava": {
-    "failFast": true,
-    "verbose": true
-  },
   "bugs": {
-    "url": "https://github.com/niftylettuce/preview-email/issues",
+    "url": "https://github.com/forwardemail/preview-email/issues",
     "email": "niftylettuce@gmail.com"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "contributors": [
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)"
   ],
   "dependencies": {
-    "dayjs": "^1.10.6",
-    "debug": "^4.3.2",
-    "mailparser": "^3.3.0",
-    "nodemailer": "^6.6.3",
+    "ci-info": "^3.3.2",
+    "crypto-random-string": "3.3.1",
+    "display-notification": "2.0.0",
+    "get-port": "5.1.1",
+    "mailparser": "^3.5.0",
+    "nodemailer": "^6.7.7",
+    "normalize.css": "^8.0.1",
     "open": "7",
+    "p-event": "4.2.0",
+    "p-wait-for": "3.2.0",
     "pug": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "ava": "^3.15.0",
-    "codecov": "^3.8.3",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "ava": "^4.3.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.32.0",
-    "eslint-config-xo-lass": "^1.0.5",
-    "eslint-plugin-node": "^11.1.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
+    "eslint": "^8.20.0",
+    "eslint-config-xo-lass": "^2.0.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "nyc": "^15.1.0",
-    "remark-cli": "^10.0.0",
-    "remark-preset-github": "^4.0.1",
-    "xo": "0.38"
+    "remark-cli": "^11.0.0",
+    "remark-preset-github": "^4.0.4",
+    "xo": "0.51"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "files": [
-    "src",
+    "index.js",
     "template.pug"
   ],
-  "homepage": "https://github.com/niftylettuce/preview-email",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
+  "homepage": "https://github.com/forwardemail/preview-email",
   "keywords": [
+    "app",
+    "apple",
     "auto",
     "automatic",
     "automatically",
@@ -69,72 +59,54 @@
     "emails",
     "engine",
     "express",
+    "file",
+    "ios",
     "koa",
     "lad",
     "lass",
     "letter",
     "litmus",
+    "mac",
+    "macos",
+    "mail",
     "mail",
     "mailer",
+    "native",
     "nodemailer",
     "open",
     "open",
     "opener",
     "opn",
+    "os",
+    "path",
     "preview",
+    "previewer",
     "pug",
     "render",
+    "render",
     "show",
+    "sim",
+    "simulate",
+    "simulator",
     "smtp",
     "template",
     "templates",
-    "test"
+    "test",
+    "web",
+    "webkit",
+    "xcode"
   ],
   "license": "MIT",
-  "lint-staged": {
-    "linters": {
-      "*.js": [
-        "xo --fix",
-        "git add"
-      ],
-      "*.md": [
-        "remark . -qfo",
-        "git add"
-      ],
-      "package.json": [
-        "fixpack",
-        "git add"
-      ]
-    }
-  },
-  "main": "src/index.js",
-  "prettier": {
-    "singleQuote": true,
-    "bracketSpacing": true,
-    "trailingComma": "none"
-  },
-  "remarkConfig": {
-    "plugins": [
-      "preset-github"
-    ]
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/niftylettuce/preview-email"
+    "url": "https://github.com/forwardemail/preview-email"
   },
   "scripts": {
-    "ava": "cross-env NODE_ENV=test DEBUG=preview-email ava",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo && eslint . --ignore-path .gitignore",
-    "nyc": "cross-env NODE_ENV=test nyc ava",
-    "test": "npm run lint && npm run ava",
-    "test-coverage": "npm run lint && npm run nyc"
-  },
-  "xo": {
-    "prettier": true,
-    "space": true,
-    "extends": [
-      "xo-lass"
-    ]
+    "ava": "cross-env NODE_ENV=test NODE_DEBUG=preview-email ava",
+    "lint": "xo --fix && remark . -qfo && fixpack",
+    "prepare": "husky install",
+    "pretest": "npm run lint",
+    "test": "cross-env NODE_ENV=test NODE_DEBUG=preview-email nyc ava"
   }
 }

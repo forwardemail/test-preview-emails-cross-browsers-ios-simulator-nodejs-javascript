@@ -1,19 +1,21 @@
 # preview-email
 
-[![build status](https://img.shields.io/travis/niftylettuce/preview-email.svg)](https://travis-ci.org/niftylettuce/preview-email)
-[![code coverage](https://img.shields.io/codecov/c/github/niftylettuce/preview-email.svg)](https://codecov.io/gh/niftylettuce/preview-email)
+[![build status](https://github.com/forwardemail/preview-email/actions/workflows/ci.yml/badge.svg)](https://github.com/forwardemail/preview-email/actions/workflows/ci.yml)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/niftylettuce/preview-email.svg)]()
 
-> Automatically opens your browser to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Lad][]!
+> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] [Lad][]!
 
 
 ## Table of Contents
 
-* [Screenshot](#screenshot)
+* [Screenshots](#screenshots)
+  * [iOS Simulator](#ios-simulator)
+  * [Browser](#browser)
 * [Install](#install)
+* [Requirements](#requirements)
 * [Usage](#usage)
 * [Custom Preview Template and Stylesheets](#custom-preview-template-and-stylesheets)
 * [Debugging](#debugging)
@@ -22,9 +24,15 @@
 * [License](#license)
 
 
-## Screenshot
+## Screenshots
 
-![demo screenshot](demo.png)
+### iOS Simulator
+
+<a href="media/macos-notification.png" target="_blank"><img src="media/macos-notification.png" width="370" height="112" alt="macOS Notification Screenshot" /></a> <br /> <a href="media/ios-simulator.png" target="_blank"><img src="media/ios-simulator.png" width="481" height="908" alt="iOS Simulator Screenshot" /></a>
+
+### Browser
+
+<a href="media/browser.png" target="_blank"><img src="media/browser.png" width="799" height="2036" alt="Browser Screenshot" /></a>
 
 
 ## Install
@@ -35,11 +43,18 @@
 npm install preview-email
 ```
 
-[yarn][]:
 
-```sh
-yarn add preview-email
-```
+## Requirements
+
+As of v3.0.6 we have built-in support for previewing emails in the iOS Simulator (in addition to rendering them in your default web browser).
+
+This is only applicable if you are using macOS and if not running in a CI environment.  If you wish to disable this default behavior, then set `openSimulator` to `false` in the [options](#options).
+
+Otherwise you will need to install XCode from the [App Store][app-store] or [Apple Developer Website][apple-developer-website].  We have built-in friendly macOS notifications that will alert you if there are any issues while attempting to load the iOS Simulator.
+
+**After installing XCode**, you will need to open it and agree to the terms and conditions.  Then you will need to [assign Command Line Tools](https://stackoverflow.com/a/36726612).
+
+**Once the Simulator is opened** – if you need to inspect the rendered email, then you can [use the Web Inspector in Safari Developer Tools](https://webkit.org/web-inspector/enabling-web-inspector/).
 
 
 ## Usage
@@ -93,10 +108,10 @@ previewEmail(message, { template: path.join(__dirname, 'my-custom-preview-templa
 
 ## Debugging
 
-Thanks to the [debug][] package, you can easily debug output from `preview-email`:
+You can easily debug output from `preview-email`:
 
 ```sh
-DEBUG=preview-email node app.js
+NODE_DEBUG=preview-email node app.js
 ```
 
 
@@ -109,6 +124,7 @@ DEBUG=preview-email node app.js
   * `open` (Object or Boolean) - an options object that is passed to [open][] (defaults to `{ wait: false }`) - if set to `false` then it will not open the email automatically in the browser using [open][], and if set to `true` then it will default to `{ wait: false }`
   * `template` (String) - a file path to a `pug` template file (defaults to preview-email's [template.pug](template.pug) by default) - **this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet**
   * `urlTransform` (Function (path) => url) - a function to build preview url from file path (defaults to `(path) => 'file://[file path]'`) - *this is where you can customize the opened path to handle WSL to Windows transformation or build a http url if `dir` is served.*
+  * `openSimulator` (Boolean) - whether or not to open the iOS Simulator with the preview url file path (defaults to `true` via `process.env.NODE_ENV !== 'test'` and will only run if macOS detected and not in a CI environment)
 
 
 ## Contributors
@@ -127,8 +143,6 @@ DEBUG=preview-email node app.js
 
 [npm]: https://www.npmjs.com/
 
-[yarn]: https://yarnpkg.com/
-
 [email-templates]: https://github.com/niftylettuce/email-templates
 
 [node]: https://nodejs.org/
@@ -141,4 +155,8 @@ DEBUG=preview-email node app.js
 
 [open]: https://github.com/sindresorhus/open
 
-[debug]: https://github.com/visionmedia/debug
+[forward-email]: https://forwardemail.net
+
+[app-store]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
+
+[apple-developer-website]: https://developer.apple.com/download/all/?q=xcode

@@ -4,4 +4,12 @@
 node_modules
 coverage
 .nyc_output
-lib
+locales/
+package-lock.json
+yarn.lock
+
+Thumbs.db
+tmp/
+temp/
+*.lcov
+.env
