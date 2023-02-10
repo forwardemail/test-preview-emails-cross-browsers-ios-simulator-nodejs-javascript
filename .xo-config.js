@@ -1,5 +1,8 @@
 module.exports = {
   prettier: true,
   space: true,
-  extends: ['xo-lass']
+  extends: ['xo-lass'],
+  rules: {
+    'unicorn/prefer-node-protocol': 'warn'
+  }
 };
