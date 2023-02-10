@@ -1,10 +1,10 @@
-const childProcess = require('node:child_process');
-const fs = require('node:fs');
-const http = require('node:http');
-const os = require('node:os');
-const path = require('node:path');
-const process = require('node:process');
-const util = require('node:util');
+const childProcess = require('child_process');
+const fs = require('fs');
+const http = require('http');
+const os = require('os');
+const path = require('path');
+const process = require('process');
+const util = require('util');
 
 const displayNotification = require('display-notification');
 const getPort = require('get-port');

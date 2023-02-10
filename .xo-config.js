@@ -3,6 +3,6 @@ module.exports = {
   space: true,
   extends: ['xo-lass'],
   rules: {
-    'unicorn/prefer-node-protocol': 'warn'
+    'unicorn/prefer-node-protocol': 'off'
   }
 };
