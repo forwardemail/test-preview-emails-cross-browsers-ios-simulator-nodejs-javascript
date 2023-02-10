@@ -1,7 +1,7 @@
 {
   "name": "preview-email",
   "description": "Automatically opens your browser and iOS Simulator to preview Node.js email messages sent with Nodemailer. Made for Forward Email and Lad!",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)",
   "bugs": {
     "url": "https://github.com/forwardemail/preview-email/issues",
