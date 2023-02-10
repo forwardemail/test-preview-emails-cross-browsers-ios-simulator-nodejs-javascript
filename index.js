@@ -1,12 +1,11 @@
-const childProcess = require('child_process');
-const fs = require('fs');
-const http = require('http');
-const os = require('os');
-const path = require('path');
-const process = require('process');
-const util = require('util');
+const childProcess = require('node:child_process');
+const fs = require('node:fs');
+const http = require('node:http');
+const os = require('node:os');
+const path = require('node:path');
+const process = require('node:process');
+const util = require('node:util');
 
-const cryptoRandomString = require('crypto-random-string');
 const displayNotification = require('display-notification');
 const getPort = require('get-port');
 const nodemailer = require('nodemailer');
@@ -123,11 +122,11 @@ const previewEmail = async (message, options) => {
         return booted;
       });
 
-      let done = false;
+      // let done = false;
       const server = http.createServer((req, res) => {
         pEvent(res, 'close').then(() => {
           debug('end');
-          done = true;
+          // done = true;
         });
         debug('request made');
         res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -144,6 +143,29 @@ const previewEmail = async (message, options) => {
         });
       });
 
+      const emlFilePath = `${options.dir}/${options.id}.eml`;
+      await writeFile(emlFilePath, response.message);
+      console.log('emlFilePath', emlFilePath);
+      const xcrun = childProcess.spawn('xcrun', [
+        'simctl',
+        'openurl',
+        'booted',
+        emlFilePath
+      ]);
+      await new Promise((resolve, reject) => {
+        xcrun.once('error', reject);
+        xcrun.once('close', (exitCode) => {
+          if (exitCode === 72)
+            return reject(
+              new Error(
+                `Could not open URL in booted Simulator; make sure Simulator is running.`
+              )
+            );
+          resolve(xcrun);
+        });
+      });
+
+      /*
       const v = await cryptoRandomString({ length: 10, type: 'alphanumeric' });
 
       const xcrun = childProcess.spawn('xcrun', [
@@ -166,6 +188,7 @@ const previewEmail = async (message, options) => {
       });
 
       await pWaitFor(() => done);
+      */
 
       // display notification
       await displayNotification({

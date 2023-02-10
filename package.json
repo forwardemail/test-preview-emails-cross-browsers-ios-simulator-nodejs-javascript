@@ -11,31 +11,30 @@
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)"
   ],
   "dependencies": {
-    "ci-info": "^3.3.2",
-    "crypto-random-string": "3.3.1",
+    "ci-info": "^3.7.1",
     "display-notification": "2.0.0",
     "get-port": "5.1.1",
-    "mailparser": "^3.5.0",
-    "nodemailer": "^6.7.7",
+    "mailparser": "^3.6.3",
+    "nodemailer": "^6.9.1",
     "open": "7",
     "p-event": "4.2.0",
     "p-wait-for": "3.2.0",
     "pug": "^3.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "ava": "^4.3.1",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "ava": "^5.2.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.20.0",
+    "eslint": "^8.33.0",
     "eslint-config-xo-lass": "^2.0.1",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.1",
     "nyc": "^15.1.0",
     "remark-cli": "^11.0.0",
     "remark-preset-github": "^4.0.4",
-    "xo": "0.51"
+    "xo": "^0.53.1"
   },
   "engines": {
     "node": ">=14"
