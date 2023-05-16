@@ -5,6 +5,7 @@ const os = require('os');
 const path = require('path');
 const process = require('process');
 const util = require('util');
+const { Buffer } = require('buffer');
 const displayNotification = require('display-notification');
 const getPort = require('get-port');
 const nodemailer = require('nodemailer');
@@ -13,7 +14,6 @@ const pEvent = require('p-event');
 const pWaitFor = require('p-wait-for');
 const pug = require('pug');
 const uuid = require('uuid');
-const { Iconv } = require('iconv');
 const { isCI } = require('ci-info');
 const { simpleParser } = require('mailparser');
 
@@ -40,17 +40,22 @@ const previewEmail = async (message, options) => {
     simpleParser: {},
     ...options
   };
+
   debug('message', message, 'options', options);
 
-  if (typeof message !== 'object')
-    throw new Error('Message argument is required');
+  let raw;
+  if (Buffer.isBuffer(message)) {
+    raw = message;
+  } else if (typeof message === 'string') {
+    raw = message;
+  } else if (typeof message === 'object') {
+    const response = await transport.sendMail(message);
+    raw = response.message;
+  } else {
+    throw new TypeError('Message argument is required');
+  }
 
-  const response = await transport.sendMail(message);
-
-  const parsed = await simpleParser(response.message, {
-    ...options.simpleParser,
-    Iconv
-  });
+  const parsed = await simpleParser(raw, options.simpleParser);
 
   const html = await renderFilePromise(
     options.template,
@@ -152,7 +157,7 @@ const previewEmail = async (message, options) => {
       });
 
       const emlFilePath = `${options.dir}/${options.id}.eml`;
-      await writeFile(emlFilePath, response.message);
+      await writeFile(emlFilePath, raw);
       debug('emlFilePath', emlFilePath);
       const xcrun = childProcess.spawn('xcrun', [
         'simctl',
