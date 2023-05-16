@@ -153,7 +153,7 @@ const previewEmail = async (message, options) => {
 
       const emlFilePath = `${options.dir}/${options.id}.eml`;
       await writeFile(emlFilePath, response.message);
-      console.log('emlFilePath', emlFilePath);
+      debug('emlFilePath', emlFilePath);
       const xcrun = childProcess.spawn('xcrun', [
         'simctl',
         'openurl',
