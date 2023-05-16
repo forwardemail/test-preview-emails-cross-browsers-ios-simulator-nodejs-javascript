@@ -1,9 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-
 const test = require('ava');
 const nodemailer = require('nodemailer');
-
 const previewEmail = require('..');
 
 const transport = nodemailer.createTransport({ jsonTransport: true });
@@ -40,6 +38,38 @@ test('opens a preview email', async (t) => {
   const response = await transport.sendMail(message);
   const url = await previewEmail(JSON.parse(response.message));
   t.true(typeof url === 'string');
+});
+
+test('returns HTML only', async (t) => {
+  const message = {
+    from: 'niftylettuce <niftylettuce+from@gmail.com>',
+    to: 'niftylettuce+to@gmail.com, niftylettuce <niftylettuce+test@gmail.com>',
+    subject: 'Hello world',
+    html: `<p>Hello world</p>`,
+    text: 'Hello world',
+    replyTo: 'niftylettuce <niftylettuce+replyto@gmail.com>',
+    inReplyTo: 'in reply to',
+    attachments: [
+      { filename: 'hello-world.txt', content: 'Hello world' },
+      { path: path.join(__dirname, '..', '.editorconfig') },
+      { path: path.join(__dirname, '..', 'media', 'browser.png') },
+      {
+        filename: 'test.txt',
+        content: fs.createReadStream(path.join(__dirname, 'test.txt'))
+      }
+    ],
+    headers: {
+      'X-Some-Custom-Header': 'Some Custom Value'
+    },
+    list: {
+      unsubscribe: 'https://niftylettuce.com/unsubscribe'
+    }
+  };
+  const response = await transport.sendMail(message);
+  const html = await previewEmail(JSON.parse(response.message), {
+    returnHTML: true
+  });
+  t.true(html.startsWith('<!DOCTYPE html>'));
 });
 
 test('does not open', async (t) => {

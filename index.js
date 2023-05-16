@@ -5,7 +5,6 @@ const os = require('os');
 const path = require('path');
 const process = require('process');
 const util = require('util');
-
 const displayNotification = require('display-notification');
 const getPort = require('get-port');
 const nodemailer = require('nodemailer');
@@ -14,6 +13,7 @@ const pEvent = require('p-event');
 const pWaitFor = require('p-wait-for');
 const pug = require('pug');
 const uuid = require('uuid');
+const { Iconv } = require('iconv');
 const { isCI } = require('ci-info');
 const { simpleParser } = require('mailparser');
 
@@ -35,6 +35,9 @@ const previewEmail = async (message, options) => {
     template: templateFilePath,
     urlTransform: (path) => `file://${path}`,
     openSimulator: process.env.NODE_ENV !== 'test',
+    returnHTML: false,
+    // <https://nodemailer.com/extras/mailparser/#options>
+    simpleParser: {},
     ...options
   };
   debug('message', message, 'options', options);
@@ -44,7 +47,10 @@ const previewEmail = async (message, options) => {
 
   const response = await transport.sendMail(message);
 
-  const parsed = await simpleParser(response.message);
+  const parsed = await simpleParser(response.message, {
+    ...options.simpleParser,
+    Iconv
+  });
 
   const html = await renderFilePromise(
     options.template,
@@ -55,10 +61,12 @@ const previewEmail = async (message, options) => {
   );
 
   const filePath = `${options.dir}/${options.id}.html`;
-  await writeFile(filePath, html);
-
   const url = options.urlTransform(filePath);
-  if (options.open) await open(url, options.open);
+
+  if (!options.returnHTML) {
+    await writeFile(filePath, html);
+    if (options.open) await open(url, options.open);
+  }
 
   //
   // if on macOS then send a toast notification about XCode and Simulator for iOS
@@ -216,7 +224,7 @@ const previewEmail = async (message, options) => {
     }
   }
 
-  return url;
+  return options.returnHTML ? html : url;
 };
 
 module.exports = previewEmail;

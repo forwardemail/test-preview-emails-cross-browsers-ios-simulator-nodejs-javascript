@@ -40,7 +40,7 @@ html
                       code= 'Unnamed file'
       if html
         tr: td(colspan=2): strong: code HTML Version:
-        tr: td(colspan=2): iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
+        tr: td(colspan=2): iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
       if text
         tr: td(colspan=2): strong: code Text Version:
-        tr: td(colspan=2): iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
+        tr: td(colspan=2): iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text

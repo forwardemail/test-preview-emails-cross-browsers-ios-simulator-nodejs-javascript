@@ -48,11 +48,11 @@ npm install preview-email
 
 As of v3.0.6 we have built-in support for previewing emails in the iOS Simulator (in addition to rendering them in your default web browser).
 
-This is only applicable if you are using macOS and if not running in a CI environment.  If you wish to disable this default behavior, then set `openSimulator` to `false` in the [options](#options).
+This is only applicable if you are using macOS and if not running in a CI environment. If you wish to disable this default behavior, then set `openSimulator` to `false` in the [options](#options).
 
-Otherwise you will need to install XCode from the [App Store][app-store] or [Apple Developer Website][apple-developer-website].  We have built-in friendly macOS notifications that will alert you if there are any issues while attempting to load the iOS Simulator.
+Otherwise you will need to install XCode from the [App Store][app-store] or [Apple Developer Website][apple-developer-website]. We have built-in friendly macOS notifications that will alert you if there are any issues while attempting to load the iOS Simulator.
 
-**After installing XCode**, you will need to open it and agree to the terms and conditions.  Then you will need to [assign Command Line Tools](https://stackoverflow.com/a/36726612).
+**After installing XCode**, you will need to open it and agree to the terms and conditions. Then you will need to [assign Command Line Tools](https://stackoverflow.com/a/36726612).
 
 **Once the Simulator is opened** – if you need to inspect the rendered email, then you can [use the Web Inspector in Safari Developer Tools](https://webkit.org/web-inspector/enabling-web-inspector/).
 
@@ -78,7 +78,7 @@ const message = {
   subject: 'Hello world',
   html: '<p>Hello world</p>',
   text: 'Hello world',
-  attachments: [ { filename: 'hello-world.txt', content: 'Hello world' } ]
+  attachments: [{ filename: 'hello-world.txt', content: 'Hello world' }]
 };
 
 // note that `attachments` will not be parsed unless you use
@@ -100,7 +100,9 @@ const path = require('path');
 
 // ...
 
-previewEmail(message, { template: path.join(__dirname, 'my-custom-preview-template.pug') })
+previewEmail(message, {
+  template: path.join(__dirname, 'my-custom-preview-template.pug')
+})
   .then(console.log)
   .catch(console.error);
 ```
@@ -125,6 +127,8 @@ NODE_DEBUG=preview-email node app.js
   * `template` (String) - a file path to a `pug` template file (defaults to preview-email's [template.pug](template.pug) by default) - **this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet**
   * `urlTransform` (Function (path) => url) - a function to build preview url from file path (defaults to `(path) => 'file://[file path]'`) - *this is where you can customize the opened path to handle WSL to Windows transformation or build a http url if `dir` is served.*
   * `openSimulator` (Boolean) - whether or not to open the iOS Simulator with the preview url file path (defaults to `true` via `process.env.NODE_ENV !== 'test'` and will only run if macOS detected and not in a CI environment)
+  * `simpleParser` (Object) - an options Object to pass to `mailparser`'s `simpleParser` method (see [mailparser docs](https://nodemailer.com/extras/mailparser/#options) for available options – note that `Iconv` option is always overridden for safeguard)
+  * `returnHTML` (Boolean) - whether or not to return HTML only – and subsequently not write nor open the file preview file (defaults to `false`)
 
 
 ## Contributors
