@@ -4,9 +4,9 @@
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
-[![license](https://img.shields.io/github/license/niftylettuce/preview-email.svg)]()
+[![license](https://img.shields.io/github/license/forward-email/preview-email.svg)]()
 
-> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] [Lad][]!
+> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] and [Lad][]!
 
 
 ## Table of Contents
@@ -20,7 +20,6 @@
 * [Custom Preview Template and Stylesheets](#custom-preview-template-and-stylesheets)
 * [Debugging](#debugging)
 * [Options](#options)
-* [Contributors](#contributors)
 * [License](#license)
 
 
@@ -32,7 +31,7 @@
 
 ### Browser
 
-<a href="media/browser.png" target="_blank"><img src="media/browser.png" width="799" height="2036" alt="Browser Screenshot" /></a>
+<a href="media/browser.png" target="_blank"><img src="media/browser.png" width="617" height="939" alt="Browser Screenshot" /></a>
 
 
 ## Install
@@ -78,8 +77,8 @@ const transport = nodemailer.createTransport({
 
 // <https://nodemailer.com/message/>
 const message = {
-  from: 'niftylettuce+from@gmail.com',
-  to: 'niftylettuce+to@gmail.com',
+  from: 'linus+from@gmail.com',
+  to: 'linus+to@gmail.com',
   subject: 'Hello world',
   html: '<p>Hello world</p>',
   text: 'Hello world',
@@ -136,23 +135,16 @@ NODE_DEBUG=preview-email node app.js
   * `returnHTML` (Boolean) - whether or not to return HTML only – and subsequently not write nor open the file preview file (defaults to `false`)
 
 
-## Contributors
-
-| Name           | Website                    |
-| -------------- | -------------------------- |
-| **Nick Baugh** | <http://niftylettuce.com/> |
-
-
 ## License
 
-[MIT](LICENSE) © [Nick Baugh](http://niftylettuce.com/)
+[MIT](LICENSE) © [Forward Email](https://forwardemail.net)
 
 
 ##
 
 [npm]: https://www.npmjs.com/
 
-[email-templates]: https://github.com/niftylettuce/email-templates
+[email-templates]: https://github.com/forwardemail/email-templates
 
 [node]: https://nodejs.org/
 

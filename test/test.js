@@ -12,12 +12,12 @@ test('returns function', (t) => {
 
 test('opens a preview email', async (t) => {
   const message = {
-    from: 'niftylettuce <niftylettuce+from@gmail.com>',
-    to: 'niftylettuce+to@gmail.com, niftylettuce <niftylettuce+test@gmail.com>',
+    from: 'linus <linus+from@gmail.com>',
+    to: 'linus+to@gmail.com, linus <linus+test@gmail.com>',
     subject: 'Hello world',
     html: `<p>Hello world</p>`,
     text: 'Hello world',
-    replyTo: 'niftylettuce <niftylettuce+replyto@gmail.com>',
+    replyTo: 'linus <linus+replyto@gmail.com>',
     inReplyTo: 'in reply to',
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
@@ -32,7 +32,7 @@ test('opens a preview email', async (t) => {
       'X-Some-Custom-Header': 'Some Custom Value'
     },
     list: {
-      unsubscribe: 'https://niftylettuce.com/unsubscribe'
+      unsubscribe: 'https://linus.com/unsubscribe'
     }
   };
   const response = await transport.sendMail(message);
@@ -42,12 +42,12 @@ test('opens a preview email', async (t) => {
 
 test('returns HTML only', async (t) => {
   const message = {
-    from: 'niftylettuce <niftylettuce+from@gmail.com>',
-    to: 'niftylettuce+to@gmail.com, niftylettuce <niftylettuce+test@gmail.com>',
+    from: 'linus <linus+from@gmail.com>',
+    to: 'linus+to@gmail.com, linus <linus+test@gmail.com>',
     subject: 'Hello world',
     html: `<p>Hello world</p>`,
     text: 'Hello world',
-    replyTo: 'niftylettuce <niftylettuce+replyto@gmail.com>',
+    replyTo: 'linus <linus+replyto@gmail.com>',
     inReplyTo: 'in reply to',
     attachments: [
       { filename: 'hello-world.txt', content: 'Hello world' },
@@ -62,7 +62,7 @@ test('returns HTML only', async (t) => {
       'X-Some-Custom-Header': 'Some Custom Value'
     },
     list: {
-      unsubscribe: 'https://niftylettuce.com/unsubscribe'
+      unsubscribe: 'https://linus.com/unsubscribe'
     }
   };
   const response = await transport.sendMail(message);
