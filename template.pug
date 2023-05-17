@@ -14,33 +14,108 @@ html
         min-height: 800px;
         max-width: 600px;
         display: block;
-        border: 1px solid black;
       }
-
+      .preview-email-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 600px;
+        border: 1px solid black;
+        background: #e2e2e2;
+      }
+      .preview-email-tabs input[type="radio"] {
+        display: none;
+      }
+      .preview-email-tabs label {
+        padding: 1rem;
+        background: #e2e2e2;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .preview-email-tabs .preview-email-tab {
+        width: 100%;
+        background: #fff;
+        order: 1;
+        display: none;
+      }
+      .preview-email-tabs input[type='radio']:checked + label + .preview-email-tab {
+        display: block;
+      }
+      .preview-email-tabs input[type="radio"]:checked + label {
+        background: #fff;
+      }
   body
     table
+      if base64
+        tr
+          td(colspan=2, style='text-align:right;'): button(type='button', onclick='downloadRawEmail()') Download Original
+        script.
+          function downloadRawEmail() {
+            var link = document.createElement('a');
+            link.href = "data:message/rfc822;base64,#{base64}";
+            link.download = "#{messageId ? messageId.replace('<', '').replace('>', '').split('@')[0] : Date.now()}.eml";
+            link.click();
+          }
       each headerLine, i in headerLines
         - const index = headerLine.line.indexOf(': ')
+        - const value = headerLine.line.slice(index + 1)
+        - const header = headers.get(headerLine.key)
         tr
           td
-            strong: code= headerLine.line.slice(0, index)
+            strong= headerLine.line.slice(0, index)
           td
-            code= headerLine.line.slice(index + 1)
+            if header
+              case headerLine.key
+                when 'content-type'
+                when 'content-disposition'
+                when 'dkim-signature'
+                  = header.value || header || value
+                  //- TODO: header.params[key]
+                when 'subject'
+                when 'references'
+                when 'message-id'
+                when 'in-reply-to'
+                when 'priority'
+                when 'x-priority'
+                when 'x-msmail-priority'
+                when 'importance'
+                  = header.value || header || value
+                when 'from'
+                when 'to'
+                when 'cc'
+                when 'bcc'
+                when 'sender'
+                when 'reply-to'
+                when 'delivered-to'
+                when 'return-path'
+                  if header.html
+                    != header.html
+                  else
+                    = header.value || header || value
+                default
+                  //- when 'date'
+                  = header.value || header || value
+            else
+              = value
       if attachments && attachments.length > 0
         tr
-          td: strong: code Attachments
+          td: strong Attachments
           td
             ul
               each a in attachments
                 li
                   a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
                     if a.filename
-                      code= `${a.filename}`
+                      code= a.filename
                     else
                       code= 'Unnamed file'
+    .preview-email-tabs
       if html
-        tr: td(colspan=2): strong: code HTML Version:
-        tr: td(colspan=2): iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
+        input(type='radio', name='preview_email', checked)#tab-html
+        label(for='tab-html') HTML
+        .preview-email-tab
+          iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
       if text
-        tr: td(colspan=2): strong: code Text Version:
-        tr: td(colspan=2): iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
+        input(type='radio', name='preview_email', checked=!html)#tab-text
+        label(for='tab-text') Plain text
+        .preview-email-tab
+          iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
