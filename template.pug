@@ -57,7 +57,7 @@ html
           }
       each headerLine, i in headerLines
         - const index = headerLine.line.indexOf(': ')
-        - const value = headerLine.line.slice(index + 1)
+        - const value = headerLine.line.slice(index + 2)
         - const header = headers.get(headerLine.key)
         tr
           td
