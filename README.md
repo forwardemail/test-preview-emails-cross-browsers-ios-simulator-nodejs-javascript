@@ -133,6 +133,7 @@ NODE_DEBUG=preview-email node app.js
   * `openSimulator` (Boolean) - whether or not to open the iOS Simulator with the preview url file path (defaults to `true` via `process.env.NODE_ENV !== 'test'` and will only run if macOS detected and not in a CI environment)
   * `simpleParser` (Object) - an options Object to pass to `mailparser`'s `simpleParser` method (see [mailparser docs](https://nodemailer.com/extras/mailparser/#options) for available options – note that `Iconv` option is always overridden for safeguard)
   * `returnHTML` (Boolean) - whether or not to return HTML only – and subsequently not write nor open the file preview file (defaults to `false`)
+  * `hasDownloadOriginalButton` (Boolean) - whether or not to render a "Download Original" button to download via base64 inline onclick JavaScript (defaults to `true`)
 
 
 ## License

@@ -113,9 +113,9 @@ html
         input(type='radio', name='preview_email', checked)#tab-html
         label(for='tab-html') HTML
         .preview-email-tab
-          iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
+          iframe(sandbox='', referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<base target='_top'>${html}`)#html
       if text
         input(type='radio', name='preview_email', checked=!html)#tab-text
         label(for='tab-text') Plain text
         .preview-email-tab
-          iframe(sandbox, referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
+          iframe(sandbox='', referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text

@@ -38,6 +38,7 @@ const previewEmail = async (message, options) => {
     returnHTML: false,
     // <https://nodemailer.com/extras/mailparser/#options>
     simpleParser: {},
+    hasDownloadOriginalButton: true,
     ...options
   };
 
@@ -47,20 +48,22 @@ const previewEmail = async (message, options) => {
   let base64;
   if (Buffer.isBuffer(message)) {
     raw = message;
-    base64 = message.toString('base64');
+    if (options.hasDownloadOriginalButton) base64 = message.toString('base64');
   } else if (typeof message === 'string') {
     raw = message;
-    base64 = Buffer.from(message).toString('base64');
+    if (options.hasDownloadOriginalButton)
+      base64 = Buffer.from(message).toString('base64');
   } else if (typeof message === 'object') {
     const response = await transport.sendMail(message);
     raw = response.message;
-    base64 = Buffer.from(response.message).toString('base64');
+    if (options.hasDownloadOriginalButton)
+      base64 = Buffer.from(response.message).toString('base64');
   } else {
     throw new TypeError('Message argument is required');
   }
 
   const parsed = await simpleParser(raw, options.simpleParser);
-  parsed.base64 = base64;
+  if (options.hasDownloadOriginalButton) parsed.base64 = base64;
 
   const html = await renderFilePromise(
     options.template,
