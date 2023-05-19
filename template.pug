@@ -66,10 +66,12 @@ html
             if header
               case headerLine.key
                 when 'content-type'
+                  //- TODO: header.params[key]
+                  = header.value || header || value
                 when 'content-disposition'
                 when 'dkim-signature'
-                  = header.value || header || value
                   //- TODO: header.params[key]
+                  = value
                 when 'subject'
                 when 'references'
                 when 'message-id'
