@@ -1,12 +1,12 @@
 # preview-email
 
-[![build status](https://github.com/forwardemail/preview-email/actions/workflows/ci.yml/badge.svg)](https://github.com/forwardemail/preview-email/actions/workflows/ci.yml)
+[![build status](https://github.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/actions/workflows/ci.yml/badge.svg)](https://github.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/actions/workflows/ci.yml)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/forward-email/preview-email.svg)]()
 
-> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] and [Lad][]!
+> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] and [Lad][]. Cross-platform and cross-browser email testing.
 
 
 ## Table of Contents
@@ -27,11 +27,11 @@
 
 ### iOS Simulator
 
-<a href="media/macos-notification.png" target="_blank"><img src="media/macos-notification.png" width="370" height="112" alt="macOS Notification Screenshot" /></a> <br /> <a href="media/ios-simulator.png" target="_blank"><img src="media/ios-simulator.png" width="481" height="908" alt="iOS Simulator Screenshot" /></a>
+<a href="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/macos-notification.png" target="_blank"><img src="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/macos-notification.png" width="370" height="112" alt="macOS Notification Screenshot" /></a> <br /> <a href="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/ios-simulator.png" target="_blank"><img src="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/ios-simulator.png" width="481" height="908" alt="iOS Simulator Screenshot" /></a>
 
 ### Browser
 
-<a href="media/browser.png" target="_blank"><img src="media/browser.png" width="617" height="939" alt="Browser Screenshot" /></a>
+<a href="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/browser.png" target="_blank"><img src="https://raw.githubusercontent.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/master/media/browser.png" width="617" height="939" alt="Browser Screenshot" /></a>
 
 
 ## Install

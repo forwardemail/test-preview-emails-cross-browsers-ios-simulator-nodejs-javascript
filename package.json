@@ -1,10 +1,10 @@
 {
   "name": "preview-email",
-  "description": "Automatically opens your browser and iOS Simulator to preview Node.js email messages sent with Nodemailer. Made for Forward Email and Lad!",
+  "description": "Automatically opens your browser and iOS Simulator to preview Node.js email messages sent with Nodemailer. Made for Forward Email and Lad. Cross-browser and cross-platform email testing.",
   "version": "3.0.17",
   "author": "Forward Email (https://forwardemail.net)",
   "bugs": {
-    "url": "https://github.com/forwardemail/preview-email/issues",
+    "url": "https://github.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript/issues",
     "email": "niftylettuce@gmail.com"
   },
   "contributors": [
@@ -44,7 +44,7 @@
     "index.js",
     "template.pug"
   ],
-  "homepage": "https://github.com/forwardemail/preview-email",
+  "homepage": "https://github.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript",
   "keywords": [
     "app",
     "apple",
@@ -99,7 +99,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/forwardemail/preview-email"
+    "url": "https://github.com/forwardemail/test-preview-emails-cross-browsers-ios-simulator-nodejs-javascript"
   },
   "scripts": {
     "ava": "cross-env NODE_ENV=test NODE_DEBUG=preview-email ava",
