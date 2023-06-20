@@ -6,7 +6,9 @@
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/forward-email/preview-email.svg)]()
 
-> Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] and [Lad][]. Cross-platform and cross-browser email testing.
+Automatically opens your browser and iOS Simulator to preview [Node.js][node] email messages sent with [Nodemailer][]. Made for [Forward Email][forward-email] and [Lad][]. Cross-platform and cross-browser email testing.
+
+> **Need to send emails that land in the inbox instead of spam folder? [Click here to learn how to send JavaScript contact forms and more with Node.js](https://forwardemail.net/docs/how-to-javascript-contact-forms-node-js)**
 
 
 ## Table of Contents
