@@ -143,11 +143,11 @@ const previewEmail = async (message, options) => {
         return booted;
       });
 
-      // let done = false;
+      let done = false;
       const server = http.createServer((req, res) => {
         pEvent(res, 'close').then(() => {
           debug('end');
-          // done = true;
+          done = true;
         });
         debug('request made');
         res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -164,6 +164,7 @@ const previewEmail = async (message, options) => {
         });
       });
 
+      /*
       const emlFilePath = `${options.dir}/${options.id}.eml`;
       await writeFile(emlFilePath, raw);
       debug('emlFilePath', emlFilePath);
@@ -186,14 +187,14 @@ const previewEmail = async (message, options) => {
         });
       });
 
-      /*
       const v = await cryptoRandomString({ length: 10, type: 'alphanumeric' });
+      */
 
       const xcrun = childProcess.spawn('xcrun', [
         'simctl',
         'openurl',
         'booted',
-        `http://127.0.0.1:${port}/?v=${v}#html`
+        `http://127.0.0.1:${port}/#html`
       ]);
       await new Promise((resolve, reject) => {
         xcrun.once('error', reject);
@@ -209,7 +210,6 @@ const previewEmail = async (message, options) => {
       });
 
       await pWaitFor(() => done);
-      */
 
       // display notification
       await displayNotification({
