@@ -120,4 +120,4 @@ html
         input(type='radio', name='preview_email', checked=!html)#tab-text
         label(for='tab-text') Plain text
         .preview-email-tab
-          iframe(sandbox='', referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
+          iframe(sandbox='allow-popups', referrerpolicy='no-referrer', seamless='seamless', srcdoc=`<pre>${text}</pre>`)#text
